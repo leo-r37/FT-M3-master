@@ -22,3 +22,49 @@ var beatles=[{
   profilePic:"http://cp91279.biography.com/BIO_Bio-Shorts_0_Ringo-Starr_SF_HD_768x432-16x9.jpg"
 }
 ]
+
+const nombres = [];
+beatles.forEach(b => {
+  nombres.push(
+    b.name.split(' ').join('%20')
+  )
+})
+
+http.createServer((req, res) => {
+
+  switch (req.url) {
+    case '/api':
+      res.writeHead(200, { 'Content-Type' : 'application/json' })
+      res.end( JSON.stringify(beatles) );
+      break;
+    case `/api/${nombres[0]}`:
+      res.writeHead(200, { 'Content-Type' : 'application/json' })
+      res.end( JSON.stringify(beatles[0]) );
+      break;
+    case `/api/${nombres[1]}`:
+      res.writeHead(200, { 'Content-Type' : 'application/json' })
+      res.end( JSON.stringify(beatles[1]) );
+      break;
+    case `/api/${nombres[2]}`:
+      res.writeHead(200, { 'Content-Type' : 'application/json' })
+      res.end( JSON.stringify(beatles[2]) );
+      break;
+    case `/api/${nombres[3]}`:
+      res.writeHead(200, { 'Content-Type' : 'application/json' })
+      res.end( JSON.stringify(beatles[3]) );
+      break;
+    case '/api/solonombres':
+      res.writeHead(200, { 'Content-Type' : 'text/plain' })
+      res.end( nombres.toString() );
+      break;
+  
+    default:
+      res.writeHead(200, { 'Content-Type' : 'text/plain' })
+      res.end( "Los Beatles no estan :'(" );
+      break;
+  }
+
+
+
+
+}).listen(1337, '127.0.0.1');
